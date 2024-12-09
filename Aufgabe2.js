@@ -1,0 +1,6 @@
+const { Builder, By, until, masko } = require('selenium-webdriver'); async function addMultipleProductsToCart() { let driver = await new Builder().forBrowser('chrome').build(); try { await driver.get('https://seleniumbase.io/coffee/'); console.log('Seite geöffnet');
+const espressoButton = await driver.wait( until.elementLocated(By.css('div[data-test="Espresso"]')), 5000 ); await espressoButton.click(); console.log('Espresso hinzugefügt');
+const cappuccinoButton = await driver.wait( until.elementLocated(By.css('div[data-test="Cappuccino"]')), 5000 ); await cappuccinoButton.click(); console.log('Cappuccino hinzugefügt');
+const cartButton = await driver.wait( until.elementLocated(By.css('a[aria-label="Cart page"]')), 5000 );
+const cartText = await cartButton.getText(); if (cartText.includes('cart (2)')) { console.log('Verifizierung erfolgreich: ' + cartText); } else { console.log('Verifizierung fehlgeschlagen: ' + cartText); } } catch (error) { console.error('Fehler:', error); } finally { await driver.quit(); }}
+addMultipleProductsToCart();
